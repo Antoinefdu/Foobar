@@ -35,19 +35,3 @@ v2 = '00000101111011001010001000000011111010100101010010010010100000000011000011
 print(v1)
 print(v2)
 print(v1 == v2)
-
-'''test_lst = [[1, 2, 3], [4, 5, 6]]
-flat = [x for y in test_lst for x in y]
-print(*flat)'''
-# dict = {}
-# # for table in soup.find('table', class_='wikitable'):
-# for row in soup('table', class_='wikitable')('tr'):
-#     print(row)
-#         # dict[tr.text.rstrip('\n')] = tr.find_next_sibling('td').text.rstrip('\n')
-# print(dict)
-
-    # for td in tr.find_all('td', limit=2):
-    #     print(td.text)
-# letters = [td.find_all('td', limit=2) for tr in main_table.find_all('tr') for td in tr]
-# print(*letters)
-# print(main_table.prettify())
