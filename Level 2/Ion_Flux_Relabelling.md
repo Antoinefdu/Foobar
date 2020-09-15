@@ -1,3 +1,32 @@
+#1- Question:
+>'''Oh no! Commander Lambda's latest experiment to improve the efficiency of her LAMBCHOP doomsday device has backfired spectacularly.
+She had been improving the structure of the ion flux converter tree, but something went terribly wrong and the flux chains exploded.
+Some of the ion flux converters survived the explosion intact, but others had their position labels blasted off.
+She's having her henchmen rebuild the ion flux converter tree by hand, but you think you can do it much more quickly - quickly enough,
+perhaps, to earn a promotion!
+Flux chains require perfect binary trees, so Lambda's design arranged the ion flux converters to form one.
+To label them, she performed a post-order traversal of the tree of converters and labeled each converter with the order of that converter
+in the traversal, starting at 1. For example, a tree of 7 converters would look like the following:
+>
+>          7
+>        /   \
+>      3      6
+>     /  \   / \
+>    1   2  4   5
+>Write a function answer(h, q) - where h is the height of the perfect tree of converters and q is a list of positive integers representing different
+ flux converters - which returns a list of integers p where each element in p is the label of the converter that sits on top of the respective
+ converter in q, or -1 if there is no such converter. For example, answer(3, [1, 4, 7]) would return the converters above the converters
+ at indexes 1, 4, and 7 in a perfect binary tree of height 3, which is [3, 6, -1].
+>
+>The domain of the integer h is 1 <= h <= 30, where
+h = 1 represents a perfect binary tree containing only the root,
+h = 2 represents a perfect binary tree with the root and two leaf nodes,
+h = 3 represents a perfect binary tree with the root, two internal nodes and four leaf nodes (like the example above),
+and so forth.
+The lists q and p contain at least one but no more than 10000 distinct integers, all of which will be between 1 and 2^h-1, inclusive.'''
+
+#2- Reasoning:
+
 First of all a bit of context: a binary search tree is a form of data structure where each node is connected to 2 other nodes. So in essence, each
  node is an object with 3 properties: a value, a left connection and a right connection.   
 So in the tree they give as example,  
@@ -15,28 +44,28 @@ And finally they mention that the trees are filled following a "post-order trave
 in the question they give you an example for a perfect binary tree of height 3 (so 3 "floors" if you will). I'll draw a height 5 below to help you
  visualise the whole "post-order traversal" thing:  
 
-                                          31
-                         /                                  \
-                     15                                      30
-               /            \                         /               \
-            7                14                    22                   29
-         /     \          /       \            /        \            /       \
-       3       6       10          13        18        21          25          28
-     /  \     /  \     /  \      /   \      /   \      /   \      /   \      /   \
-    1   2    4    5   8    9   11    12   16    17    19    20  23    24    26    27
+                                       31
+                         /                           \
+                     15                                  30
+              /            \                       /            \
+           7                 14                 22                29
+        /     \           /      \            /     \          /       \
+       3       6        10        13        18       21       25       28
+     /  \     /  \     /  \      /  \      /  \     /  \     /  \     /  \
+    1    2   4    5   8    9   11    12  16   17   19  20   23   24  26   27
 
 
 
 and so just by looking closely at this tree, you can start noticing some patterns:
 
 1) if you look at the left-most numbers, they seem to be powers of 2, -1.   
-So if you want to calculate the value of the left-most node at height 1, it's 2^1-1 = 1  
+Meaning that if you want to calculate the value of the left-most node at height 1, it's 2^1-1 = 1  
 height 2   : 2^2-1 = 3  
 height 3   : 2^3-1 = 7   
 height 4   : 2^4-1 = 15    
 height 26 : 2^26-1 = 67108863  
 
-2) similarly, and still reading each "level" of the tree from left to right, the second value is always the double of the first  
+2) similarly, and still and still reading each "level" of the tree from left to right, the second value is always the double of the first  
 height 1   : 1 ==> 2  
 height 2   : 3 ==> 6  
 height 3   : 7 ==> 14  
@@ -72,8 +101,6 @@ so now we can set aside 7, which we add to our "temporary_solution". So 8 become
 So now I can do the exercise (which in this case is "return the value of the parent node) on node 1. I'll get 3. Then add "temporary_solution" and
  I get 22+3 = 25, the parent node of node 22.  
 
-
-
 btw, what I did right there (doing the same operations on an item over and over again) that's called a recursive process. It can be very dangerous
  in some scenarios because it can throw your computer in an infinite loop, but sometimes (like here) it can save you and your computer a lot of
   time and energy.  
@@ -103,9 +130,11 @@ First I defined a function "top of subtree" with a parameter h and which returns
 def top_of_subtree(h):  
       return 2**h-1  
 
-then I define the main function "analyse node", that will take as parameter the value of the node ( n ), a "output" parameter that will be set to 0
+then I define the main function "analyse node", that will take as parameter the value of the node (n), a "output" parameter that will be set to 0
  by default and will serve as a cache for when I call the function recursively (remember the example above, when I started with 23, then I set
-  apart 15, then 7. Well 15 and 7 will go to the cache), and finally the height ( h ) of the subtree I'm analysing. I will always start from the maximum height of the tree, which will be given to me in each input, then work my way down in increments of h-1. I'll spare you the details, but it looks like this  
+  apart 15, then 7. Well 15 and 7 will go to the cache), and finally the height (h) of the subtree I'm analysing. I will always start from the
+   maximum height of the tree, which will be given to me in each input, then work my way down in increments of h-1. I'll spare you the details, but
+    it looks like this  
     
     def analyse_node(h, n, output):  
             if n == top_of_subtree(h) * 2:  
@@ -127,11 +156,11 @@ then I define the main function "analyse node", that will take as parameter the 
             return output
 
 
-And now all I have to do is put those 2 functions in my main "solution" function, create an empty list ("final_output") where I'll put my answers for each node, then a little "for loop" that will cycle through each node given to me in the input and will put the answer into final_output
+And now all I have to do is put those 2 functions in my main "solution" function, create an empty list ("final_output") where I'll put my answers
+ for each node, then a little "for loop" that will cycle through each node given to me in the input and will put the answer into final_output  
 
 
-
-the whole solution fits under 25 lines:
+and we get a solution that fits under 25 lines:
 
     def solution(h, q):
         def top_of_subtree(h):
