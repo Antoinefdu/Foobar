@@ -1,5 +1,7 @@
-#1- Question:
->'''Oh no! Commander Lambda's latest experiment to improve the efficiency of her LAMBCHOP doomsday device has backfired spectacularly.
+>Ion Flux Relabelling
+>====================
+>Oh no! Commander Lambda's latest experiment to improve the efficiency of her LAMBCHOP doomsday device has backfired
+> spectacularly.
 She had been improving the structure of the ion flux converter tree, but something went terribly wrong and the flux chains exploded.
 Some of the ion flux converters survived the explosion intact, but others had their position labels blasted off.
 She's having her henchmen rebuild the ion flux converter tree by hand, but you think you can do it much more quickly - quickly enough,
@@ -23,9 +25,9 @@ h = 1 represents a perfect binary tree containing only the root,
 h = 2 represents a perfect binary tree with the root and two leaf nodes,
 h = 3 represents a perfect binary tree with the root, two internal nodes and four leaf nodes (like the example above),
 and so forth.
-The lists q and p contain at least one but no more than 10000 distinct integers, all of which will be between 1 and 2^h-1, inclusive.'''
+The lists q and p contain at least one but no more than 10000 distinct integers, all of which will be between 1 and 2^h-1, inclusive.
 
-#2- Reasoning:
+# Reasoning:
 
 First of all a bit of context: a binary search tree is a form of data structure where each node is connected to 2 other nodes. So in essence, each
  node is an object with 3 properties: a value, a left connection and a right connection.   
