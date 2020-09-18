@@ -63,11 +63,11 @@ Imagine a naive algorithm that would reach the end of a very long array, only to
 As with the previous exercise, once the logic is clear, the code pretty much writes itself:
 
     def solution(xs):
-    xs = sorted(xs, key=abs, reverse=True)  # making sure that the only negative we leave in cache is the smallest one
+    xs = sorted(xs, key=abs, reverse=True)
     if len(xs) == 1:
         return str(xs[0])
     else:
-        output = 0  # we will redefine this as 1 as soon as we find an integer that is > 0, or 2 that are < 0
+        output = 0
         neg_cache = 1
         for _ in xs:
             if _ < 0:
@@ -76,7 +76,7 @@ As with the previous exercise, once the logic is clear, the code pretty much wri
                 else:  # if neg_cache != 1, then it is < 0
                     output = 1 if output == 0 else output
                     output *= _ * neg_cache
-                    neg_cache /= neg_cache  # neg_cache set back to 1
+                    neg_cache /= neg_cache
             elif _ > 0:
                 output = 1 if output == 0 else output
                 output *= _
