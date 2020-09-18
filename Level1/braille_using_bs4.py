@@ -15,11 +15,6 @@ for k, v in dict1.items():
 print(dict1)
 
 
-# test1 = '011011'
-#
-# print(''.join([y for x, y in enumerate(test1, 1) if x % 2 == 1]+[y for x, y in enumerate(test1, 1) if x % 2 == 0]))
-
-
 def braille(word):
     output = ''
     for letter in word:
